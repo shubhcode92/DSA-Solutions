@@ -3,13 +3,15 @@
 import java.util.* ;
 import java.io.*; 
 
-
-//  Recursion + Memoization Approach ( Top-Down )
+-----------------------------------------------------------------------------------------------------------------------------------------------
+//  Recursion + Memoization Approach ( Top-Down ) 
+TC - O(N)
+SC - O(N) + O(N)
 public class Solution {
     private static int[] dp;
     public static int frogJump(int n, int arr[]) {
 
-        // Write your code here..
+        // Write your code here
         dp = new int[n+1];
         Arrays.fill(dp, -1);
         return helper(0, n, arr);
@@ -42,11 +44,14 @@ public class Solution {
 }
 
 
+-----------------------------------------------------------------------------------------------------------------------------------------------
 // Tabulation Approach ( Bottom-Up )
+TC - O(N)
+SC - O(N)
 public class Solution {
     public static int frogJump(int n, int arr[]) {
 
-        // Write your code here..
+        // Write your code here
         int[] dp = new int[n];
         Arrays.fill(dp, Integer.MAX_VALUE);
         dp[0] = 0;
@@ -64,4 +69,32 @@ public class Solution {
         return dp[n-1];
     }
 
+}
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+// Space Optimization
+TC - O(N)
+SC - O(1)
+public class Solution {
+    public static int frogJump(int n, int arr[]) {
+
+        // Write your code here
+        int dp1 = 0;
+        int dp2 = 0;
+
+        for (int i=1; i<n; i++) {
+            int first = dp2 + Math.abs(arr[i]-arr[i-1]);    // Instade using DP array be use couple of arrays to reduce the space
+            int second = Integer.MAX_VALUE;
+            if (i > 1) {
+                second = dp1 + Math.abs(arr[i]-arr[i-2]);
+            }
+
+            int third = Math.min(first, second);
+            dp1 = dp2;
+            dp2 = third;
+        }
+
+        return dp2;
+    }
 }
