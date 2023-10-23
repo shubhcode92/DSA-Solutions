@@ -2,6 +2,9 @@
 
 import java.util.* ;
 import java.io.*; 
+
+
+//  Recursion + Memoization Approach ( Top-Down )
 public class Solution {
     private static int[] dp;
     public static int frogJump(int n, int arr[]) {
@@ -35,7 +38,30 @@ public class Solution {
         }
 
         return dp[i] = Math.min(firstJump, secondJump);
+    }
+}
 
+
+// Tabulation Approach ( Bottom-Up )
+public class Solution {
+    public static int frogJump(int n, int arr[]) {
+
+        // Write your code here..
+        int[] dp = new int[n];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0] = 0;
+
+        for (int i=1; i<n; i++) {
+            int first = dp[i-1] + Math.abs(arr[i]-arr[i-1]);
+            int second = Integer.MAX_VALUE;
+            if (i > 1) {
+                second = dp[i-2] + Math.abs(arr[i]-arr[i-2]);
+            }
+
+            dp[i] = Math.min(first, second);
+        }
+
+        return dp[n-1];
     }
 
 }
