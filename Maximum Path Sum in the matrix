@@ -1,0 +1,50 @@
+//  this proble is preety tricky and solve like run a three thread in single node
+// TC - O(3^N)   After take DP Solution otherwise it takes O(3^N * M)
+// SC - O(N)
+
+import java.util.* ;
+import java.io.*; 
+
+public class Solution {
+	private static int[][] dp;
+	public static int getMaxPathSum(int[][] matrix) {
+		// Write your code here
+		int n = matrix.length;
+		int m = matrix[0].length;
+		dp = new int[n][m];
+		for (int[] x : dp) {
+			Arrays.fill(x, -1);
+		}
+
+		int ans = Integer.MIN_VALUE;
+		for (int i=0; i<m; i++)
+			ans = Math.max(ans, helper(matrix, n-1, i));
+
+		return ans;
+	}
+	private static int helper
+	(
+		int[][] mat,
+		int i,
+		int j
+	) {
+		if (j < 0 || j >= mat[0].length) {
+			return -(int)1e8;
+		}
+
+		if (i == 0) {
+			return mat[0][j];
+		}
+
+		if (dp[i][j] != -1) {
+			return dp[i][j];
+		}
+		int s = mat[i][j] + helper(mat, i-1, j);
+		int l = mat[i][j] + helper(mat, i-1, j-1);
+		int r = mat[i][j] + helper(mat, i-1, j+1);
+
+
+		return dp[i][j] = Math.max(s, Math.max(l, r));
+
+	}
+}
