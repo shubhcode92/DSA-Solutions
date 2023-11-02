@@ -1,0 +1,46 @@
+// This is Brute Force solution 
+// TC - O(N*N)
+// SC - O(N)
+
+
+class Solution {
+    private int count ;
+    private int sum ;
+    public int averageOfSubtree(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList();
+
+        q.offer(root);
+        int ans = 0;
+        while (!q.isEmpty()) {
+            TreeNode current = q.poll();
+            count = 0;
+            sum = 0;
+            helper(current) ;
+            if ((sum/count) == current.val) {
+                ans++;
+            }
+
+            if (current.left != null) {
+                q.offer(current.left);
+            }
+
+            if (current.right != null) {
+                q.offer(current.right);
+            }
+
+        }
+
+        return ans;
+    }
+
+    private void helper(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        helper(root.left);
+        helper(root.right);
+        sum += root.val;
+        count++;
+    }
+}
