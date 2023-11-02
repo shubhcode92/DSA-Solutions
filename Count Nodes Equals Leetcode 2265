@@ -44,3 +44,38 @@ class Solution {
         count++;
     }
 }
+
+
+// This is a optimized version of this the question
+// TC - O(N)
+// SC - (N)  stack space
+
+
+class Solution {
+    private int ans ;
+    public int averageOfSubtree(TreeNode root) {
+        ans = 0;
+
+        helper(root);
+
+        return ans;
+    }
+
+    private int[] helper(TreeNode root) {
+        if (root == null) {
+            return new int[]{0, 0};
+        }
+
+        int[] left = helper(root.left);
+        int[] right = helper(root.right);
+
+        int count = 1 + left[0] + right[0];
+        int sum = root.val + left[1] + right[1];
+        if ((sum/count) == root.val) {
+            ans++;
+        }
+
+        return new int[]{count, sum};
+    }
+
+}
