@@ -1,0 +1,27 @@
+// In this problem we are doing basically build the array using stack method to push() and pop()
+// TC - O(N + log(N))
+// SC - O(1) if Answer list except
+
+class Solution {
+    public static List<String> buildArray(int[] target, int n) {
+        List<String> shubhcode = new ArrayList<>();
+        int temp = 1; // The temp number to be pushed.
+
+        for (int i = 0; i < target.length; i++) {
+            while (temp < target[i]) {
+                // While the temp number is less than the target number,
+                // push the temp number and generate the "Push" operation.
+                shubhcode.add("Push");
+                shubhcode.add("Pop"); // After pushing, immediately pop.
+                temp++;
+            }
+
+            // The temp number matches the target number, so push it.
+            shubhcode.add("Push");
+
+            temp++; // Move to the next number to be pushed.
+        }
+
+        return shubhcode;
+    }
+}
