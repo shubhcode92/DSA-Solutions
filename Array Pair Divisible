@@ -1,0 +1,42 @@
+//  Make pair of an array and every par sum is must divisible by K
+// And a have approach to solve this perticular type of problem that is easily handled by this alogorithm
+// I just use a demo DP array of size N that track the data of selected pair , if pair is done then you mark the index as -1 that never be consider in future
+// this algorithms make sense
+
+// Time Complexity - O(N*N/2)
+// Space Complexity - O(N)
+
+
+class Solution {
+    public boolean canPair(int[] nums, int k) {
+        // Code here
+        int n = nums.length;
+        if (n%2 == 1) {
+            return false;
+        }
+        
+        int[] dp = new int[n];
+        for (int i=0; i<n;) {
+            dp[i] = -1;
+            boolean flag = true;     // Here we find the defference, It helps to reduce time complexity
+            for (int j=i+1; j<n; j++) {
+                if (dp[j] == -1) continue;
+                
+                if ((nums[i]+nums[j])%k == 0) {
+                    dp[j] = -1;
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                return false;
+            }
+            while (i < n && dp[i] == -1) {
+                i++;
+            }
+        }
+        
+        return true;
+        
+    }
+}
