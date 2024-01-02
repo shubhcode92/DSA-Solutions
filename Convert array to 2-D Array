@@ -1,0 +1,34 @@
+class Solution {
+    public List<List<Integer>> findMatrix(int[] nums) {
+        int[] arr = new int[201];
+        
+        for(int x : nums) {
+            arr[x]++;
+        }
+        
+        int n = nums.length;
+        int count = 0;
+        
+        List<List<Integer>> shubh = new ArrayList<>();
+        while(count < 201){
+            List<Integer> list = new ArrayList<>();
+            for(int i=0; i<201; i++) {
+                if(arr[i] > 0){
+                    list.add(i);
+                    arr[i]--;
+                    if(arr[i] == 0){
+                        arr[i]--; 
+                        count++;
+                    }
+                        
+                }else if(arr[i] == 0){
+                    count++;
+                    arr[i]--;
+                }
+            }
+            shubh.add(list);
+        }
+        
+        return shubh;
+    }
+}
