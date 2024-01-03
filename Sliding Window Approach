@@ -1,0 +1,32 @@
+class Solution {
+    public int smallestSubstring(String S) {
+        // Code here
+        int shubhcode = Integer.MAX_VALUE;
+        int n = S.length();
+        
+        int left = 0;
+        int right = 0;
+        int one = 0;
+        int two = 0;
+        int zero = 0;
+        while (right < n && left < n) {
+            zero += S.charAt(right)=='0' ? 1 : 0;
+            one += S.charAt(right)=='1' ? 1 : 0;
+            two += S.charAt(right)=='2' ? 1 : 0;
+            
+            while (left < right && zero >= 1 && one >= 1 && two >= 1) {
+                shubhcode = Math.min(shubhcode, (right-left+1));
+                zero += S.charAt(left)=='0' ? -1 : 0;
+                one += S.charAt(left)=='1' ? -1 : 0;
+                two += S.charAt(left)=='2' ? -1 : 0;
+                left++;
+            } 
+            
+            right++;
+        }
+        
+        
+        
+        return shubhcode == Integer.MAX_VALUE ? -1 : shubhcode;
+    }
+};
