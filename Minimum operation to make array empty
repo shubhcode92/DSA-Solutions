@@ -1,0 +1,28 @@
+class Solution {
+    public int minOperations(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        
+        int n = nums.length;
+        
+        for (int i=0; i<n; i++) {
+            map.merge(nums[i], 1, Integer :: sum);
+        }
+        
+        int shubh = 0;
+        
+        for (int x : map.keySet()) {
+            int a = map.get(x);
+            if (a == 1) {
+                return -1;
+            } else {
+                if (a%3 != 0) {
+                    shubh++;
+                }
+                shubh += (a/3);
+                
+            }
+        }
+        
+        return shubh;
+    }
+}
