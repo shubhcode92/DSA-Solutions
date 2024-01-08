@@ -1,0 +1,16 @@
+class Solution {
+    int ans;
+    public void printmain(TreeNode node, int low, int high){
+        if(node == null)return;
+        printmain(node.left, low, high);
+        if(node.val >= low && node.val <= high)ans += node.val;
+        printmain(node.right, low, high);
+    }
+    
+    public int rangeSumBST(TreeNode root, int low, int high) {
+        ans = 0;
+        printmain(root, low, high);
+
+        return ans;
+    }
+}
