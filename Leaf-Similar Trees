@@ -1,0 +1,21 @@
+class Solution {
+    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        List<Integer> l1 = new LinkedList<>();
+        List<Integer> l2 = new LinkedList<>();
+
+        sera1(root1, l1);
+        sera1(root2, l2);
+
+        return l1.equals(l2);
+    }
+
+    public void sera1(TreeNode node, List<Integer> lk){
+        if(node != null){
+            if(node.left == null && node.right == null){
+                lk.add(node.val);
+            }
+            sera1(node.left, lk);
+            sera1(node.right, lk);
+        }
+    }
+}
